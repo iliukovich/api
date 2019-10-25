@@ -18,7 +18,6 @@ public class VkApiTest extends BaseTest {
     @Test(dataProvider = "userData", dataProviderClass = DataDrivenLogIn.class)
     public void checkLogin(String email, String passwd) {
         LoginPageSteps.login(email, passwd);
-
         profilePageSteps.openMyProfilePage();
 
         int postId = profilePageSteps.createPost(RANDOM_TEXT);

@@ -24,43 +24,49 @@ public class VkApiHelper extends ApiHelper {
     private static final String LIKES_GET_REQUEST = "https://api.vk.com/method/likes.getList";
     private static final String WALL_DELETE_REQUEST = "https://api.vk.com/method/wall.delete";
     private static final String USERS_GET_REQUEST = "https://api.vk.com/method/users.get";
-    private List<NameValuePair> listOfDefaultParameters = getListOfDefaultParameters();
 
     public WallPostResponse sendWallPostRequest(String postText) {
-        listOfDefaultParameters.add(new BasicNameValuePair("message", postText));
-        return mapToObject(sendPostRequest(WALL_POST_REQUEST, listOfDefaultParameters), WallPostResponse.class);
+        List<NameValuePair> listOfParameters = getListOfDefaultParameters();
+        listOfParameters.add(new BasicNameValuePair("message", postText));
+        return mapToObject(sendPostRequest(WALL_POST_REQUEST, listOfParameters), WallPostResponse.class);
     }
 
     public void sendWallEditRequest(String postText, int postId, SavedPictureResponse savedPicture) {
-        listOfDefaultParameters.add(new BasicNameValuePair("message", postText));
-        listOfDefaultParameters.add(new BasicNameValuePair("post_id", String.valueOf(postId)));
-        listOfDefaultParameters.add(new BasicNameValuePair("attachments", savedPicture.toString()));
-        sendPostRequest(WALL_EDIT_REQUEST, listOfDefaultParameters);
+        List<NameValuePair> listOfParameters = getListOfDefaultParameters();
+        listOfParameters.add(new BasicNameValuePair("message", postText));
+        listOfParameters.add(new BasicNameValuePair("post_id", String.valueOf(postId)));
+        listOfParameters.add(new BasicNameValuePair("attachments", savedPicture.toString()));
+        sendPostRequest(WALL_EDIT_REQUEST, listOfParameters);
     }
 
     public PhotosGetWallUploadServerResponse sendGetWallUploadServerRequest() {
-        return mapToObject(sendPostRequest(PHOTOS_GET_WALL_UPLOAD_SERVER_REQUEST, listOfDefaultParameters), PhotosGetWallUploadServerResponse.class);
+        List<NameValuePair> listOfParameters = getListOfDefaultParameters();
+        return mapToObject(sendPostRequest(PHOTOS_GET_WALL_UPLOAD_SERVER_REQUEST, listOfParameters), PhotosGetWallUploadServerResponse.class);
     }
 
     public WallCommentResponse sendWallCommentRequest(int postId, String commentText) {
-        listOfDefaultParameters.add(new BasicNameValuePair("message", commentText));
-        listOfDefaultParameters.add(new BasicNameValuePair("post_id", String.valueOf(postId)));
-        return mapToObject(sendPostRequest(WALL_COMMENT_REQUEST, listOfDefaultParameters), WallCommentResponse.class);
+        List<NameValuePair> listOfParameters = getListOfDefaultParameters();
+        listOfParameters.add(new BasicNameValuePair("message", commentText));
+        listOfParameters.add(new BasicNameValuePair("post_id", String.valueOf(postId)));
+        return mapToObject(sendPostRequest(WALL_COMMENT_REQUEST, listOfParameters), WallCommentResponse.class);
     }
 
     public void sendWallDelete(int postId) {
-        listOfDefaultParameters.add(new BasicNameValuePair("post_id", String.valueOf(postId)));
-        sendPostRequest(WALL_DELETE_REQUEST, listOfDefaultParameters);
+        List<NameValuePair> listOfParameters = getListOfDefaultParameters();
+        listOfParameters.add(new BasicNameValuePair("post_id", String.valueOf(postId)));
+        sendPostRequest(WALL_DELETE_REQUEST, listOfParameters);
     }
 
     public LikesResponse sendPostLikesResponse(int postId) {
-        listOfDefaultParameters.add(new BasicNameValuePair("type", "post"));
-        listOfDefaultParameters.add(new BasicNameValuePair("item_id", String.valueOf(postId)));
-        return mapToObject(sendPostRequest(LIKES_GET_REQUEST, listOfDefaultParameters), LikesResponse.class);
+        List<NameValuePair> listOfParameters = getListOfDefaultParameters();
+        listOfParameters.add(new BasicNameValuePair("type", "post"));
+        listOfParameters.add(new BasicNameValuePair("item_id", String.valueOf(postId)));
+        return mapToObject(sendPostRequest(LIKES_GET_REQUEST, listOfParameters), LikesResponse.class);
     }
 
     public UsersResponse sendGetUserId() {
-        return mapToObject(sendPostRequest(USERS_GET_REQUEST, listOfDefaultParameters), UsersResponse.class);
+        List<NameValuePair> listOfParameters = getListOfDefaultParameters();
+        return mapToObject(sendPostRequest(USERS_GET_REQUEST, listOfParameters), UsersResponse.class);
     }
 
     public UploadedPictureResponse sendPostUploadPicture(String uploadUrl, String filePath) {
@@ -68,15 +74,16 @@ public class VkApiHelper extends ApiHelper {
     }
 
     public SavedPictureResponse sendSavePhotoRequest(UploadedPictureResponse uploadedPicture) {
-        listOfDefaultParameters.add(new BasicNameValuePair("photo", uploadedPicture.getPhoto()));
-        listOfDefaultParameters.add(new BasicNameValuePair("hash", uploadedPicture.getHash()));
-        listOfDefaultParameters.add(new BasicNameValuePair("server", String.valueOf(uploadedPicture.getServer())));
-        return mapToObject(sendPostRequest(PHOTOS_SAVE_REQUEST, listOfDefaultParameters), SavedPictureResponse.class);
+        List<NameValuePair> listOfParameters = getListOfDefaultParameters();
+        listOfParameters.add(new BasicNameValuePair("photo", uploadedPicture.getPhoto()));
+        listOfParameters.add(new BasicNameValuePair("hash", uploadedPicture.getHash()));
+        listOfParameters.add(new BasicNameValuePair("server", String.valueOf(uploadedPicture.getServer())));
+        return mapToObject(sendPostRequest(PHOTOS_SAVE_REQUEST, listOfParameters), SavedPictureResponse.class);
     }
 
     private List<NameValuePair> getListOfDefaultParameters() {
         List<NameValuePair> listOfParameters = new ArrayList<>();
-        listOfParameters.add(new BasicNameValuePair("access_token", "3e45b6cfb21cf8e9f3b2c67f50c16d69f1fc16b7f06f33763051fd662c923498f6bb07ad7ee865e4c0fa2"));
+        listOfParameters.add(new BasicNameValuePair("access_token", "06f838a87976f60d1be3203278930f2405a587ddcccd3d9873dd2ad77fe7bcc09084eb70cb81dd835f4c0"));
         listOfParameters.add(new BasicNameValuePair("v", "5.102"));
         return listOfParameters;
     }
