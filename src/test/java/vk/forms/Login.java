@@ -11,6 +11,10 @@ public class Login extends Form {
     private ITextBox passwd = getElementFactory().getTextBox(By.id("index_pass"), "password field");
     private IButton loginButton = getElementFactory().getButton(By.id("index_login_button"), "login button");
 
+    public Login() {
+        super(By.id("index_login"), "Login page");
+    }
+
     public void fillEmail(String emailValue) {
         email.clearAndType(emailValue);
     }
@@ -21,9 +25,5 @@ public class Login extends Form {
 
     public void clickLogin() {
         loginButton.clickAndWait();
-    }
-
-    public Login() {
-        super(By.id("index_login"), "Login page");
     }
 }
