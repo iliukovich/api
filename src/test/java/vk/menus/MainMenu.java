@@ -3,16 +3,19 @@ package vk.menus;
 import aquality.selenium.elements.interfaces.ILabel;
 import aquality.selenium.forms.Form;
 import org.openqa.selenium.By;
+import vk.enums.MainMenuItem;
 
 public class MainMenu extends Form {
 
-    private ILabel myProfile = getElementFactory().getLabel(By.id("l_pr"), "My profile");
-
-    public void clickMyProfile() {
-        myProfile.clickAndWait();
-    }
-
     public MainMenu() {
         super(By.id("side_bar_inner"), "Side bar");
+    }
+
+    public void clickItem(MainMenuItem mainMenuItem) {
+        getMainMenuItem(mainMenuItem).clickAndWait();
+    }
+
+    private ILabel getMainMenuItem(MainMenuItem mainMenuItem) {
+        return getElementFactory().getLabel(By.id(mainMenuItem.getMenuItem()), "My profile");
     }
 }

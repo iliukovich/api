@@ -3,6 +3,7 @@ package vk.helpers;
 import helpers.ApiHelper;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import vk.enums.ApiMethod;
 import vk.models.photos.getWallUploadServer.PhotosGetWallUploadServerResponse;
 import vk.models.photos.saveWallPhoto.SavedPictureResponse;
 import vk.models.photos.uploadPicture.UploadedPictureResponse;
@@ -16,19 +17,10 @@ import java.util.List;
 
 public class VkApiHelper extends ApiHelper {
 
-    private static final String WALL_POST_REQUEST = "https://api.vk.com/method/wall.post";
-    private static final String WALL_EDIT_REQUEST = "https://api.vk.com/method/wall.edit";
-    private static final String PHOTOS_GET_WALL_UPLOAD_SERVER_REQUEST = "https://api.vk.com/method/photos.getWallUploadServer";
-    private static final String PHOTOS_SAVE_REQUEST = "https://api.vk.com/method/photos.saveWallPhoto";
-    private static final String WALL_COMMENT_REQUEST = "https://api.vk.com/method/wall.createComment";
-    private static final String LIKES_GET_REQUEST = "https://api.vk.com/method/likes.getList";
-    private static final String WALL_DELETE_REQUEST = "https://api.vk.com/method/wall.delete";
-    private static final String USERS_GET_REQUEST = "https://api.vk.com/method/users.get";
-
     public WallPostResponse sendWallPostRequest(String postText) {
         List<NameValuePair> listOfParameters = getListOfDefaultParameters();
         listOfParameters.add(new BasicNameValuePair("message", postText));
-        return mapToObject(sendPostRequest(WALL_POST_REQUEST, listOfParameters), WallPostResponse.class);
+        return mapToObject(sendPostRequest(ApiMethod.WALL_POST.getApiRequest(), listOfParameters), WallPostResponse.class);
     }
 
     public void sendWallEditRequest(String postText, int postId, SavedPictureResponse savedPicture) {
@@ -36,37 +28,37 @@ public class VkApiHelper extends ApiHelper {
         listOfParameters.add(new BasicNameValuePair("message", postText));
         listOfParameters.add(new BasicNameValuePair("post_id", String.valueOf(postId)));
         listOfParameters.add(new BasicNameValuePair("attachments", savedPicture.toString()));
-        sendPostRequest(WALL_EDIT_REQUEST, listOfParameters);
+        sendPostRequest(ApiMethod.WALL_EDIT.getApiRequest(), listOfParameters);
     }
 
     public PhotosGetWallUploadServerResponse sendGetWallUploadServerRequest() {
         List<NameValuePair> listOfParameters = getListOfDefaultParameters();
-        return mapToObject(sendPostRequest(PHOTOS_GET_WALL_UPLOAD_SERVER_REQUEST, listOfParameters), PhotosGetWallUploadServerResponse.class);
+        return mapToObject(sendPostRequest(ApiMethod.PHOTOS_GET_WALL_UPLOAD_SERVER.getApiRequest(), listOfParameters), PhotosGetWallUploadServerResponse.class);
     }
 
     public WallCommentResponse sendWallCommentRequest(int postId, String commentText) {
         List<NameValuePair> listOfParameters = getListOfDefaultParameters();
         listOfParameters.add(new BasicNameValuePair("message", commentText));
         listOfParameters.add(new BasicNameValuePair("post_id", String.valueOf(postId)));
-        return mapToObject(sendPostRequest(WALL_COMMENT_REQUEST, listOfParameters), WallCommentResponse.class);
+        return mapToObject(sendPostRequest(ApiMethod.WALL_CREATE_COMMENT.getApiRequest(), listOfParameters), WallCommentResponse.class);
     }
 
     public void sendWallDelete(int postId) {
         List<NameValuePair> listOfParameters = getListOfDefaultParameters();
         listOfParameters.add(new BasicNameValuePair("post_id", String.valueOf(postId)));
-        sendPostRequest(WALL_DELETE_REQUEST, listOfParameters);
+        sendPostRequest(ApiMethod.WALL_DELETE.getApiRequest(), listOfParameters);
     }
 
     public LikesResponse sendPostLikesResponse(int postId) {
         List<NameValuePair> listOfParameters = getListOfDefaultParameters();
         listOfParameters.add(new BasicNameValuePair("type", "post"));
         listOfParameters.add(new BasicNameValuePair("item_id", String.valueOf(postId)));
-        return mapToObject(sendPostRequest(LIKES_GET_REQUEST, listOfParameters), LikesResponse.class);
+        return mapToObject(sendPostRequest(ApiMethod.LIKES_GET_LIST.getApiRequest(), listOfParameters), LikesResponse.class);
     }
 
     public UsersResponse sendGetUserId() {
         List<NameValuePair> listOfParameters = getListOfDefaultParameters();
-        return mapToObject(sendPostRequest(USERS_GET_REQUEST, listOfParameters), UsersResponse.class);
+        return mapToObject(sendPostRequest(ApiMethod.USERS_GET.getApiRequest(), listOfParameters), UsersResponse.class);
     }
 
     public UploadedPictureResponse sendPostUploadPicture(String uploadUrl, String filePath) {
@@ -78,7 +70,7 @@ public class VkApiHelper extends ApiHelper {
         listOfParameters.add(new BasicNameValuePair("photo", uploadedPicture.getPhoto()));
         listOfParameters.add(new BasicNameValuePair("hash", uploadedPicture.getHash()));
         listOfParameters.add(new BasicNameValuePair("server", String.valueOf(uploadedPicture.getServer())));
-        return mapToObject(sendPostRequest(PHOTOS_SAVE_REQUEST, listOfParameters), SavedPictureResponse.class);
+        return mapToObject(sendPostRequest(ApiMethod.PHOTOS_SAVE_WALL_PHOTO.getApiRequest(), listOfParameters), SavedPictureResponse.class);
     }
 
     private List<NameValuePair> getListOfDefaultParameters() {

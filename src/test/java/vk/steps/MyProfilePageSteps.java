@@ -2,6 +2,8 @@ package vk.steps;
 
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
+import vk.enums.ImageType;
+import vk.enums.MainMenuItem;
 import vk.forms.ProfileWall;
 import vk.helpers.ImageUtils;
 import vk.helpers.VkApiHelper;
@@ -25,8 +27,8 @@ public class MyProfilePageSteps {
     private MainMenu mainMenu = new MainMenu();
     private VkApiHelper vkApiHelper = new VkApiHelper();
 
-    public void openMyProfilePage() {
-        mainMenu.clickMyProfile();
+    public void openMyProfilePage(MainMenuItem mainMenuItem) {
+        mainMenu.clickItem(mainMenuItem);
     }
 
     public int createPost(String randomText) {
@@ -35,7 +37,7 @@ public class MyProfilePageSteps {
     }
 
     public void assertCreatedPostIsDisplayed(int postId) {
-        Assert.assertTrue(profileWall.isWallPostDisplayed(postId), "Profile post is not displayed");
+        Assert.assertTrue(profileWall.isWallPostDisplayed(postId), String.format("Profile post %s is not displayed", postId));
     }
 
     public void assertText(int itemId, String randomText) {
@@ -60,7 +62,7 @@ public class MyProfilePageSteps {
 
     public void assertPictureIsTheSameAsUploaded(SavedPictureResponse savedPicture, String picturePath, String fileName) {
         SoftAssert assertImages = new SoftAssert();
-        assertImages.assertTrue(ImageUtils.compareWithBaseImage(new File(picturePath), new File(downloadFileByUrl(getImageUrl(savedPicture), fileName))), "Images are not equal");
+        assertImages.assertTrue(ImageUtils.isSimilarToBaseImage(new File(picturePath), new File(downloadFileByUrl(getImageUrl(savedPicture), fileName))), "Images are not equal");
     }
 
     public int addCommentToPost(int postId, String randomText) {
@@ -110,10 +112,10 @@ public class MyProfilePageSteps {
 
     private String getImageUrl(SavedPictureResponse savedPicture) {
         for (Size size : savedPicture.getResponse().get(0).getSizes()) {
-            if (size.getType().equals("w")) {
+            if (size.getType().equals(ImageType.ORIGINAL_SIZE.getImageSize())) {
                 return size.getUrl();
             }
         }
-        throw new AssertionError("Image with type 'w' isn't found in response");
+        throw new AssertionError(String.format("Image with type %s isn't found in response", ImageType.ORIGINAL_SIZE.getImageSize()));
     }
 }

@@ -1,5 +1,7 @@
 package vk.helpers;
 
+import aquality.selenium.logger.Logger;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -7,7 +9,7 @@ import java.io.IOException;
 
 public class ImageUtils {
 
-    public static boolean compareWithBaseImage(File firstFile, File secondFile) {
+    public static boolean isSimilarToBaseImage(File firstFile, File secondFile) {
         BufferedImage firstImage = getImageFromFile(firstFile);
         BufferedImage secondImage = getImageFromFile(secondFile);
 
@@ -26,7 +28,7 @@ public class ImageUtils {
         try {
             image = ImageIO.read(imageFile);
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            Logger.getInstance().warn("IOException: " + e.getMessage());
         }
         return image;
     }

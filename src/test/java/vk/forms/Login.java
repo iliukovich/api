@@ -7,8 +7,8 @@ import org.openqa.selenium.By;
 
 public class Login extends Form {
 
-    private ITextBox email = getElementFactory().getTextBox(By.id("index_email"), "email field");
-    private ITextBox passwd = getElementFactory().getTextBox(By.id("index_pass"), "password field");
+    private ITextBox email = getElementFactory().getTextBox(By.id("index_email"), "email");
+    private ITextBox passwd = getElementFactory().getTextBox(By.id("index_pass"), "password");
     private IButton loginButton = getElementFactory().getButton(By.id("index_login_button"), "login button");
 
     public Login() {

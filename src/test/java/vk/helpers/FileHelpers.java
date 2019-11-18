@@ -1,5 +1,7 @@
 package vk.helpers;
 
+import aquality.selenium.logger.Logger;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -14,8 +16,8 @@ public class FileHelpers {
             Path path = Paths.get(fileName);
             Files.copy(in, path, StandardCopyOption.REPLACE_EXISTING);
             return path.toString();
-        } catch (IOException var1) {
-            System.out.println(var1.getMessage());
+        } catch (IOException e) {
+            Logger.getInstance().warn("IOException: " + e.getMessage());
             return null;
         }
     }

@@ -1,5 +1,6 @@
 package helpers;
 
+import aquality.selenium.logger.Logger;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
@@ -22,11 +23,13 @@ import java.util.List;
 public class ApiHelper {
 
     private HttpClient httpClient = HttpClients.custom().build();
+    private final Logger logger = Logger.getInstance();
 
     public HttpResponse sendGetRequest(String url) {
         try {
             return sendRequest(new HttpGet(new URIBuilder(url).build()));
         } catch (URISyntaxException e) {
+            logger.error("URISyntaxException: " + e.getMessage());
             throw new Error(e.getMessage());
         }
     }
@@ -41,6 +44,7 @@ public class ApiHelper {
         try {
             return sendPostRequest(url, new UrlEncodedFormEntity(data));
         } catch (UnsupportedEncodingException e) {
+            logger.error("UnsupportedEncodingException: " + e.getMessage());
             throw new Error(e.getMessage());
         }
     }
@@ -58,7 +62,7 @@ public class ApiHelper {
                     photo.getName()
             );
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            logger.warn("FileNotFoundException: " + e.getMessage());
         }
 
         HttpEntity multipart = builder.build();
@@ -73,7 +77,7 @@ public class ApiHelper {
             responseBody = getContent(response);
             object = objectMapper.readValue(responseBody, className);
         } catch (IOException e) {
-            e.getStackTrace();
+            logger.warn("IOException: " + e.getMessage());
         }
         return object;
     }
@@ -82,6 +86,7 @@ public class ApiHelper {
         try (InputStream stream = response.getEntity().getContent()) {
             return new String(IOUtils.toByteArray(stream));
         } catch (IOException e) {
+            logger.error("IOException: " + e.getMessage());
             throw new Error(e.getMessage());
         }
     }
@@ -90,6 +95,7 @@ public class ApiHelper {
         try {
             return httpClient.execute(request);
         } catch (IOException e) {
+            logger.error("IOException: " + e.getMessage());
             throw new Error(e.getMessage());
         }
     }
