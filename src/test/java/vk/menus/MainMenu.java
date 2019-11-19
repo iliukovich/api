@@ -16,6 +16,6 @@ public class MainMenu extends Form {
     }
 
     private ILabel getMainMenuItem(MainMenuItem mainMenuItem) {
-        return getElementFactory().getLabel(By.id(mainMenuItem.getMenuItem()), "My profile");
+        return getElementFactory().getLabel(By.id(mainMenuItem.getMenuItem()), mainMenuItem.name());
     }
 }
