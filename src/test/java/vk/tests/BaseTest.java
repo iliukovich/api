@@ -5,7 +5,7 @@ import aquality.selenium.browser.BrowserManager;
 import aquality.selenium.logger.Logger;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
-import vk.helpers.PropertiesResourceManager;
+import helpers.PropertiesResourceManager;
 
 public class BaseTest {
 

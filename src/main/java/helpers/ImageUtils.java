@@ -1,4 +1,4 @@
-package vk.helpers;
+package helpers;
 
 import aquality.selenium.logger.Logger;
 

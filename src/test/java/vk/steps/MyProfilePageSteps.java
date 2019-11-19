@@ -5,7 +5,7 @@ import org.testng.asserts.SoftAssert;
 import vk.enums.ImageType;
 import vk.enums.MainMenuItem;
 import vk.forms.ProfileWall;
-import vk.helpers.ImageUtils;
+import helpers.ImageUtils;
 import vk.helpers.VkApiHelper;
 import vk.menus.MainMenu;
 import vk.models.photos.getWallUploadServer.PhotosGetWallUploadServerResponse;
@@ -19,7 +19,7 @@ import vk.models.wall.user.UsersResponse;
 
 import java.io.File;
 
-import static vk.helpers.FileHelpers.downloadFileByUrl;
+import static helpers.FileHelpers.downloadFileByUrl;
 
 public class MyProfilePageSteps {
 
