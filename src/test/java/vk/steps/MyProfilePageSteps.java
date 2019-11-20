@@ -63,6 +63,7 @@ public class MyProfilePageSteps {
     public void assertPictureIsTheSameAsUploaded(SavedPictureResponse savedPicture, String picturePath, String fileName) {
         SoftAssert assertImages = new SoftAssert();
         assertImages.assertTrue(ImageUtils.isSimilarToBaseImage(new File(picturePath), new File(downloadFileByUrl(getImageUrl(savedPicture), fileName))), "Images are not equal");
+        assertImages.assertAll("Images are not equal");
     }
 
     public int addCommentToPost(int postId, String randomText) {

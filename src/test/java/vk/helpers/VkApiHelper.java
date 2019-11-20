@@ -75,8 +75,10 @@ public class VkApiHelper extends ApiHelper {
 
     private List<NameValuePair> getListOfDefaultParameters() {
         List<NameValuePair> listOfParameters = new ArrayList<>();
-        listOfParameters.add(new BasicNameValuePair("access_token", System.getProperty("token")));
-        listOfParameters.add(new BasicNameValuePair("v", System.getProperty("apiVersion")));
+//        listOfParameters.add(new BasicNameValuePair("access_token", System.getProperty("token")));
+//        listOfParameters.add(new BasicNameValuePair("v", System.getProperty("apiVersion")));
+        listOfParameters.add(new BasicNameValuePair("access_token", "f6c54131bd9266a002bab94282e627094cbfe68e6976d33d53ed79af2960b77289ea3abb4978faddf73af"));
+        listOfParameters.add(new BasicNameValuePair("v", "5.102"));
         return listOfParameters;
     }
 }

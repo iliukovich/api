@@ -6,7 +6,9 @@ import vk.enums.MainMenuItem;
 import vk.models.photos.saveWallPhoto.SavedPictureResponse;
 import vk.steps.LoginPageSteps;
 import vk.steps.MyProfilePageSteps;
+import testrail.helpers.TestInfo;
 
+@TestInfo(id = 1)
 public class VkApiTest extends BaseTest {
 
     private static final String RANDOM_TEXT = RandomStringUtils.randomAlphanumeric(10);

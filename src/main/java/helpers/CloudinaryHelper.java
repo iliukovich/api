@@ -4,7 +4,6 @@ import aquality.selenium.logger.Logger;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
@@ -24,14 +23,9 @@ public class CloudinaryHelper {
         return response.get("url").toString();
     }
 
-    public boolean assertFileIsTheSameAsUploaded(String path, byte[] image, String url, String fileName) {
-        return ImageUtils.isSimilarToBaseImage(FileHelpers.convertByteArrayIntoTheFile(path, image), new File(FileHelpers.downloadFileByUrl(url, fileName)));
-    }
-
     private Map uploadFileToCloudinary(Cloudinary cloudinary, byte[] image) {
         try {
-            Map result = cloudinary.uploader().upload(image, ObjectUtils.emptyMap());
-            return result;
+            return cloudinary.uploader().upload(image, ObjectUtils.emptyMap());
         } catch (IOException e) {
             Logger.getInstance().warn("IOException: " + e.getMessage());
             return null;

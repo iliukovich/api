@@ -22,7 +22,7 @@ public class FileHelpers {
         }
     }
 
-    public static File convertByteArrayIntoTheFile(String path, byte[] array) {
+    public static File convertByteArrayIntoTheFile(byte[] array, String path) {
         File file = new File(path);
         try {
             FileUtils.writeByteArrayToFile(file, array);
